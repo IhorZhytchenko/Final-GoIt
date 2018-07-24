@@ -1,0 +1,10 @@
+<div th:fragment="top-menu" class="w3-block w3-gray" xmlns:th="http://www.w3.org/1999/xhtml">
+    <a href="/" class="w3-button">Main</a>
+    <a th:if="${curUser != null}" href="/myinfo" class="w3-button">My Page</a>
+    <a href="/admin" class="w3-button">Admin</a>
+
+
+    <a th:if="${curUser != null}" href="/logout" class="w3-button w3-red w3-right">Log Out</a>
+    <a th:if="${curUser == null}" href="/login" class="w3-button w3-green w3-right">Log In</a>
+
+</div>

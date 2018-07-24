@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Employees</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+
+<div th:replace="fragments/adminMenu.html :: top-menu"/>
+
+<div class="w3-container w3-margin">
+
+
+    <div class="w3-container w3-purple">
+        <h3>Employees</h3>
+    </div>
+    <div style="height: 24px;"></div>
+    <table class="w3-table w3-striped w3-bordered">
+        <div th:each="employee : ${employees}" class="w3-container">
+            <tr>
+                <td><h3 th:text="${employee.firstName} + '  ' + ${employee.lastName}">Name</h3>
+                    <a th:href="'/admin/employee/hours/info?id=' + ${employee.id}" href="#" class="w3-button w3-purple">working hours info</a></td>
+                <td><a th:href="'/admin/employee/delete?id=' + ${employee.id}" href="#" class="w3-button w3-red">Delete</a></td>
+                <td><a th:href="'/admin/employee/edit?id=' + ${employee.id}" href="#" class="w3-button w3-orange w3-margin-left">Edit</a></td>
+            </tr>
+        </div>
+    </table>
+    <div style="height: 24px;"></div>
+    <div class="w3-container">
+        <a class="w3-button w3-right  w3-purple w3-large" href="/admin/employee/add">Add employee</a>
+    </div>
+
+
+</div>
+
+</body>
+</html>

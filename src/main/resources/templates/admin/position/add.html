@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Add Position</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+
+
+<div th:replace="fragments/adminMenu.html :: top-menu"/>
+
+<div class="w3-container">
+    <br/>
+
+    <div class="w3-card w3-white">
+        <div class="w3-container w3-yellow"><h3>Add Position</h3></div>
+
+        <div class="w3-container">
+            <form th:object="${position}" action="/admin/position/add" method="post">
+
+                <h3>Name:</h3>
+                <input required  value="" type="text" name="name" class="w3-input w3-border"/>
+                <br/>
+                <h3>Description:</h3>
+                <input value="" type="text" name="desc"  class="w3-input w3-border"/>
+                <br/>
+
+                <div style="height: 24px;"></div>
+                <input type="submit" class="w3-button w3-yellow  w3-margin-bottom" value="Save"/>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

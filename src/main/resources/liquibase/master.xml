@@ -1,0 +1,247 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd ">
+
+    <changeSet id="create role table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="role">
+            <column name="id" type="int" >
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="role" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create state table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="state">
+            <column name="id" type="int" autoIncrement="true" >
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create position table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="position">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(1000)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create department table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="department">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="description" type="varchar(1000)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create event table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="event">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="date" type="date"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create employee table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="employee">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="varchar(255)"/>
+            <column name="last_name" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="hourly_rate" type="double"/>
+            <column name="state_id" type="int">
+            <constraints foreignKeyName="fk_employee_state" references="state(id)"/>
+            </column>
+            <column name="position_id" type="int">
+                <constraints foreignKeyName="fk_employee_position" references="position(id)"/>
+            </column>
+            <column name="department_id" type="int">
+                <constraints foreignKeyName="fk_employee_department" references="department(id)"/>
+            </column>
+            <column name="active" type="int"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create employee_role table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="employee_role">
+            <column name="employee_id" type="int" >
+                <constraints nullable="false"  primaryKey="true" foreignKeyName="fk_employee_role_employee" references="employee(id)"/>
+            </column>
+            <column name="role_id" type="int" >
+                <constraints nullable="false"  primaryKey="true" foreignKeyName="fk_employee_role_role" references="role(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create employee_event table" author="igor.zhytchenko@gmail.com">
+        <createTable tableName="employee_event">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="employee_id" type="int" >
+                <constraints nullable="false"  foreignKeyName="fk_employee_event_employee" references="employee(id)"/>
+            </column>
+            <column name="event_id" type="int" >
+                <constraints nullable="false" foreignKeyName="fk_employee_event_event" references="event(id)"/>
+            </column>
+            <column name="hours" type="int" >
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="init role 1" author="igor.zhytchenko@gmail.com">
+        <insert tableName="role">
+            <column name="id" value="1">
+            </column>
+            <column name="role" value="USER">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM role WHERE id = 1;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init role 2" author="igor.zhytchenko@gmail.com">
+        <insert tableName="role">
+            <column name="id" value="2">
+            </column>
+            <column name="role" value="MODERATOR">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM role WHERE id = 2;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init role 3" author="igor.zhytchenko@gmail.com">
+        <insert tableName="role">
+            <column name="id" value="3">
+            </column>
+            <column name="role" value="ADMIN">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM role WHERE id = 3;
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init state 1" author="igor.zhytchenko@gmail.com">
+        <insert tableName="state">
+            <column name="name" value="working">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM state WHERE name = 'working';
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init state 2" author="igor.zhytchenko@gmail.com">
+        <insert tableName="state">
+            <column name="name" value="holiday">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM state WHERE name = 'holiday';
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init state 3" author="igor.zhytchenko@gmail.com">
+        <insert tableName="state">
+            <column name="name" value="sick">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM state WHERE name = 'sick';
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init department" author="igor.zhytchenko@gmail.com">
+        <insert tableName="department">
+            <column name="name" value="admin">
+            </column>
+            <column name="description" value="Admin Department">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM department WHERE name = 'admin';
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init position" author="igor.zhytchenko@gmail.com">
+        <insert tableName="position">
+            <column name="name" value="admin">
+            </column>
+            <column name="description" value="Admin Position">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM position WHERE name = 'admin';
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init employee" author="igor.zhytchenko@gmail.com">
+        <insert tableName="employee">
+            <column name="first_name" value="admin">
+            </column>
+            <column name="last_name" value="admin">
+            </column>
+            <column name="email" value="admin">
+            </column>
+            <!--password - admin-->
+            <column name="password" value="$2a$10$.MTwPq5rIgIi592VricLDujlqLzmzD/rUwgrPAAwtNpoKrq298lSe">
+            </column>
+            <column name="active" value="1">
+            </column>
+            <column name="hourly_rate" value="0.0">
+            </column>
+            <column name="state_id" valueComputed="(SELECT id FROM state WHERE name = 'working')">
+            </column>
+            <column name="position_id" valueComputed="(SELECT id FROM position WHERE name = 'admin')">
+            </column>
+            <column name="department_id" valueComputed="(SELECT id FROM department WHERE name = 'admin')">
+            </column>
+        </insert>
+        <rollback>
+            DELETE FROM employee WHERE email LIKE 'admin' AND password LIKE '$2a$10$.MTwPq5rIgIi592VricLDujlqLzmzD/rUwgrPAAwtNpoKrq298lSe';
+        </rollback>
+    </changeSet>
+
+    <changeSet id="init employee_role 1" author="igor.zhytchenko@gmail.com">
+    <insert tableName="employee_role">
+        <column name="employee_id" valueComputed="(SELECT id FROM employee WHERE email = 'admin')">
+        </column>
+        <column name="role_id" value="1">
+        </column>
+    </insert>
+</changeSet>
+    <changeSet id="init employee_role 2" author="igor.zhytchenko@gmail.com">
+        <insert tableName="employee_role">
+            <column name="employee_id" valueComputed="(SELECT id FROM employee WHERE email = 'admin')">
+            </column>
+            <column name="role_id" value="2">
+            </column>
+        </insert>
+    </changeSet>
+    <changeSet id="init employee_role 3" author="igor.zhytchenko@gmail.com">
+        <insert tableName="employee_role">
+            <column name="employee_id" valueComputed="(SELECT id FROM employee WHERE email = 'admin')">
+            </column>
+            <column name="role_id" value="3">
+            </column>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

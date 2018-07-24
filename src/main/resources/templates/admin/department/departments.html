@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Departments</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+
+<div th:replace="fragments/adminMenu.html :: top-menu"/>
+
+<div class="w3-container w3-margin">
+
+
+    <div class="w3-container w3-blue">
+        <h3>Departments</h3>
+    </div>
+    <div class="w3-container w3-red">
+        <h3 th:text="${msg}"></h3>
+    </div>
+    <div style="height: 24px;"></div>
+    <table class="w3-table w3-striped w3-bordered">
+        <div th:each="department : ${departments}" class="w3-container">
+            <tr>
+                <td><h3 th:text="${department.name}">Name</h3></td>
+                <td><a th:href="'/admin/department/delete?id=' + ${department.id}" href="#" class="w3-button w3-red">Delete</a></td>
+                <td><a th:href="'/admin/department/edit?id=' + ${department.id}" href="#" class="w3-button w3-orange w3-margin-left">Edit</a></td>
+            </tr>
+        </div>
+    </table>
+    <div style="height: 24px;"></div>
+    <div class="w3-container">
+        <a class="w3-button w3-right  w3-blue w3-large" href="/admin/department/add">Add department</a>
+    </div>
+
+
+</div>
+
+</body>
+</html>

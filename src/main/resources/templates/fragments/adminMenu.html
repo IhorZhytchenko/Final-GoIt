@@ -1,0 +1,13 @@
+<div th:fragment="top-menu" class="w3-block w3-gray" xmlns:th="http://www.w3.org/1999/xhtml">
+    <a href="/" class="w3-button">Main</a>
+    <a href="/admin/employee" class="w3-button">Employee</a>
+    <a href="/admin/department" class="w3-button">Department</a>
+    <a href="/admin/position" class="w3-button">Position</a>
+    <a href="/admin/event" class="w3-button">Event</a>
+    <a href="/role" class="w3-button w3-yellow">Role Management</a>
+
+
+
+    <a th:if="${curUser != null}" href="/logout" class="w3-button w3-red w3-right">Log Out</a>
+
+</div>

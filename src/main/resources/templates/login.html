@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Вхід в систему </title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+<div class="w3-container w3-red" th:if="${param.error}">
+    <h3>Credential error </h3>
+</div>
+
+
+<div class="w3-container">
+    <div class="w3-card w3-white" style="width: 600px; margin: auto; margin-top: 100px;">
+        <div class="w3-container w3-blue"><h3>Вхід в систему</h3></div>
+        <div class="w3-panel w3-padding-16">
+            <form th:action="@{/login}" method="post">
+                <div><label> Email: <input class="w3-input w3-border w3-margin-bottom" type="text" id="email" name="email"  th:placeholder="Email"/> </label></div>
+                <div><label> Password: <input  class="w3-input w3-border w3-margin-bottom" type="password" name="password"/> </label></div>
+                <div>
+                    <input class="w3-button w3-blue w3-right" type="submit" value="Log In"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

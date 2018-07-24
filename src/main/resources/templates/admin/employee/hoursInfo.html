@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Main</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+    <script>
+    function showInfo() {
+        var id = $('#employeeId').val();
+        var sdate = $('#startDate').val();
+        var fdate = $('#finishDate').val();
+        var regEx = /(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))/;
+        if(!(sdate.match(regEx) && fdate.match(regEx))) {
+            alert("invalid date format");
+            return;
+        }
+        $.ajax('./data', {
+            method: 'get',
+            data: {employeeId : id, startDate: sdate, finishDate : fdate},
+
+            complete: function (data) {
+                $('#info').empty();
+               $('#info').append(data.responseText);
+            }
+
+        })
+    }
+    </script>
+</head>
+<body class="w3-light-grey">
+
+
+<div th:replace="fragments/adminMenu.html :: top-menu"/>
+
+<div class="w3-container">
+    <br/>
+
+    <div class="w3-card w3-white">
+        <div class="w3-container w3-purple"><h2 th:text="${employee.firstName} + '  ' + ${employee.lastName} + ' working hours info'">Main page</h2></div>
+        <div class="w3-container w3-light-purple"><h3>Please, enter a time period</h3>
+            <input type="hidden" th:value="${employee.id}" id="employeeId"/>
+            <h5>Beginning date:</h5>
+            <h6>format: yyyy-MM-DD </h6>
+            <input value="" type="text" id="startDate" class="w3-input w3-border"/>
+            <h5>End date:</h5>
+            <h6>format: yyyy-MM-DD </h6>
+            <input value="" type="text" id="finishDate" class="w3-input w3-border"/>
+            <input  type="button" class="w3-button w3-purple w3-padding w3-margin" value="Show" onclick="return showInfo();" >
+    </div>
+    </div>
+    <div class="w3-container">
+        <pre id="info"></pre>
+    </div>
+
+</div>
+</body>
+</html>

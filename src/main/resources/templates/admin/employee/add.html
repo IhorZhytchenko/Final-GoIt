@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Add Employee</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+
+
+<div th:replace="fragments/adminMenu.html :: top-menu"/>
+
+<div class="w3-container">
+    <br/>
+
+    <div class="w3-card w3-white">
+        <div class="w3-container w3-purple"><h3>Add Employee</h3></div>
+
+        <div class="w3-container">
+            <form th:object="${employee}" action="/admin/employee/add" method="post">
+                <input type="hidden" value="1" th:field="*{active}"/>
+                <h3>First Name:</h3>
+                <input required  value="" type="text" th:field="*{firstName}" class="w3-input w3-border"/>
+                <br/>
+                <h3>Last Name:</h3>
+                <input required  value="" type="text" th:field="*{lastName}" class="w3-input w3-border"/>
+                <br/>
+                <h3>Email:</h3>
+                <input required  value="" type="text" th:field="*{email}" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" class="w3-input w3-border"/>
+                <br/>
+                <h3>Password(5 or more characters):</h3>
+                <input value="" type="password"   th:field="*{password}" class="w3-input w3-border"/>
+                <br/>
+                <h3>Hourly rate:</h3>
+                <input  value="" type="text" th:field="*{hourlyRate}" pattern="\d+\.\d{1,2}" class="w3-input w3-border"/>
+                <br/>
+                <h3>Department:</h3>
+                <select th:field="*{department}" style="display: inline-block !important;" class="w3-select w3-block">
+
+                    <option th:each="dp : ${departments}"
+                            th:value="${dp.id}"
+                            th:utext="${dp.name}"/>
+                </select>
+                <h3>Position:</h3>
+                <select th:field="*{position}" style="display: inline-block !important;" class="w3-select w3-block">
+
+                    <option th:each="ps : ${positions}"
+                            th:value="${ps.id}"
+                            th:utext="${ps.name}"/>
+                </select>
+                <h3>State:</h3>
+                <select th:field="*{state}" style="display: inline-block !important;" class="w3-select w3-block">
+
+                    <option th:each="st : ${states}"
+                            th:value="${st.id}"
+                            th:utext="${st.name}"/>
+                </select>
+                <div style="height: 24px;"></div>
+                <input type="submit" class="w3-button w3-purple  w3-margin-bottom" value="Save"/>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

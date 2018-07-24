@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Add Event</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+
+
+<div th:replace="fragments/adminMenu.html :: top-menu"/>
+
+<div class="w3-container">
+    <br/>
+
+    <div class="w3-card w3-white">
+        <div class="w3-container w3-green"><h3>Add event</h3></div>
+
+        <div class="w3-container">
+            <form th:object="${event}" action="/admin/event/add" method="post">
+
+                <h3>Name:</h3>
+                <input required  value="" type="text" name="name" class="w3-input w3-border"/>
+                <br/>
+                <h3>Check employees</h3>
+
+                <div th:each="employee: ${employees}">
+                    <input name="employeesId" th:value="${employee.id}" class="w3-check" type="checkbox"/>
+                    <label th:text="${employee.firstName} + ' ' + ${employee.lastName}">Employee</label>
+                </div>
+
+
+                <div style="height: 24px;"></div>
+                <input type="submit" class="w3-button w3-green  w3-margin-bottom" value="next"/>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

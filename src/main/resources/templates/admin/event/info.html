@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Event Info</title>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+
+
+<div th:replace="fragments/adminMenu.html :: top-menu"/>
+
+<div class="w3-container">
+    <br/>
+
+    <div class="w3-card w3-white">
+        <div class="w3-container w3-green"><h3>Event Info</h3></div>
+
+        <div class="w3-container w3-light-grey">
+            <h3 th:text="${event.name}">Name</h3>
+            <h3 th:text="'Date - ' + ${event.date}">Date</h3>
+            <table class="w3-table-all">
+                <thead>
+                <tr class="w3-light-grey">
+                    <th>Employees</th>
+                    <th>Hours</th>
+                </tr>
+                </thead>
+                <tr th:each="empEvent, rowStat: ${event.employeeEvents}">
+                    <td><h5 th:text="${empEvent.employee.firstName} + ' ' + ${empEvent.employee.lastName}"></h5></td>
+                    <td><h5 th:text="${empEvent.hours}"></h5></td>
+                </tr>
+            </table>
+        </div>
+        <div style="height: 24px;"></div>
+        <div class="w3-container">
+            <a class="w3-button w3-green w3-large w3-margin" href="/admin/event">back</a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

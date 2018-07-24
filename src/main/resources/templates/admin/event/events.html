@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+
+
+<div th:replace="fragments/adminMenu.html :: top-menu"/>
+
+<div class="w3-container w3-margin">
+
+
+    <div class="w3-container w3-green">
+        <h3>Events</h3>
+    </div>
+    <div style="height: 24px;"></div>
+    <div class="w3-container">
+        <a class="w3-button   w3-green w3-large" href="/admin/event/add">Add event</a>
+    </div>
+    <div style="height: 24px;"></div>
+    <table class="w3-table-all">
+        <div th:each="event : ${events}" class="w3-container">
+            <tr>
+                <td><h3 th:text="${event.name}">Name</h3>
+                    <h5 th:text="'Date - ' + ${event.date}">Date</h5>
+                    <h5 th:text="'Employees count - ' + ${event.employeeEvents.size()}">*</h5>
+                <td><a th:href="'/admin/event/info?id=' + ${event.id}" href="#" class="w3-button w3-yellow w3-margin-left">INFO</a></td>
+            </tr>
+        </div>
+    </table>
+    <div style="height: 24px;"></div>
+
+
+
+</div>
+
+</body>
+</html>
